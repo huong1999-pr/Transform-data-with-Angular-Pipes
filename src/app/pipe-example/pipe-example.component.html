@@ -1,0 +1,64 @@
+<h2>Usage</h2>
+<pre ngNonBindable>{{ now | date}}</pre>
+<div>Date: {{ now | date}}</div>
+<pre ngNonBindable>{{ now | date:'medium'}}</pre>
+<div>Date: {{ now | date:'medium'}}</div>
+<hr>
+
+<h2 class="mt-4">Chaining pipe</h2>
+<pre ngNonBindable>{{ now | date | uppercase}}</pre>
+<div>Date: {{ now | date | uppercase}}</div>
+<pre ngNonBindable>{{ now | date:'medium' | uppercase}}</pre>
+<div>Date: {{ now | date:'medium' | uppercase}}</div>
+
+<hr>
+
+<h2 class="mt-4">Custom pipe</h2>
+<pre ngNonBindable>{{ userId | appTitle}}</pre>
+<div>Form title: {{ userId | appTitle}} User</div>
+<pre ngNonBindable>{{ userId | appTitle:"Set":"Change"}}</pre>
+<div>Form title custom text: {{ userId | appTitle:"Set":"Change"}} User</div>
+<hr>
+
+<h2 class="mt-4">Pipe and change detector</h2>
+<h3 class="mt-3">Primitive type</h3>
+<p>Set userId to empty string after {{ time$ | async }} seconds, notice the text "Edit" will be set to "Add"</p>
+<pre ngNonBindable>{{ userIdChangeAfterFiveSeconds | appTitle}}</pre>
+<div>Form title: {{ userIdChangeAfterFiveSeconds | appTitle}} User</div>
+<h3 class="mt-4">Reference type</h3>
+<div class="row no-gutters">
+	<div class="col-xs-6">
+		<h4>Full user list</h4>
+		<div *ngFor="let user of users">{{ user.name }} - {{ user.age }}</div>
+	</div>
+	<div class="col-xs-6">
+		<div class="ml-4">
+			<h4>Adult user list</h4>
+			<div *ngFor="let user of users | isAdult">{{ user.name }} - {{ user.age }}</div>
+		</div>
+	</div>
+</div>
+<div class="row mt-4 no-gutters">
+	<div class="col-xs-12">
+		<form>
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">Name</label>
+				<div class="col-sm-9">
+					<input type="text" name="Name" [(ngModel)]="newUser.name" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Age</label>
+        <div class="col-sm-9">
+          <input type="number" name="Name" [(ngModel)]="newUser.age" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">        
+        <div class="col-sm-12">
+          <button class="btn btn-primary" (click)="addUser()">Add</button>
+          <button class="btn btn-success ml-2" (click)="addUserByUpdateReference()">Add By Change Reference</button>
+        </div>
+      </div>            
+		</form>
+	</div>
+	<div class="mb-5"></div>
